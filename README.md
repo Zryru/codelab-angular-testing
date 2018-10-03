@@ -1,27 +1,103 @@
 # AngularTesting
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.3.
+```
+describe('test', () => {
+  it('test for a sum', () => {
+    expect(5 + 5).toEqual(10);
+  });
+});
+```
 
-## Development server
+```
+export class Person {
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+  constructor(
+   public name: string,
+   public lastname: string,
+   public age: number
+  ) {}
 
-## Code scaffolding
+  getFullName(): string {
+   return `${this.name} ${this.lastname}`;
+  }
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+  getAgeInYears( years: number ): number {
+   return this.age + years;
+  }
+}
+```
 
-## Build
+````
+import { Person } from './person.model';
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+describe('Test for Person', () => {
 
-## Running unit tests
+  // Code
+});
+````
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+````
+import { Person } from './person.model';
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+describe('Test for Person', () => {
 
-## Further help
+  // Code
+});
+````
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+````
+  describe('Test for person.getFullName', () => {
+
+    it('should return an string with name + lastname', () => {
+      const person = new Person('Nicolas', 'Molina', 24);
+      expect(person.getFullName()).toEqual('Nicolas Molina');
+    });
+
+  });
+````
+
+````
+  describe('Test for person.getAgeInYears', () => {
+
+    // code
+
+  });
+````
+
+````
+it('should return 34 years', () => {
+  const person = new Person('Nicolas', 'Molina', 24);
+  const age = person.getAgeInYears(10);
+  expect(age).toEqual(34);
+});
+````
+
+````
+it('should return 35 years', () => {
+  const person = new Person('Nicolas', 'Molina', 20);
+  const age = person.getAgeInYears(15);
+  expect(age).toEqual(35);
+});
+````
+
+````
+it('should return 28 years with negative number', () => {
+  const person = new Person('Nicolas', 'Molina', 28);
+  const age = person.getAgeInYears(-10);
+  expect(age).toEqual(28);
+});
+```
+
+```
+npm i karma-mocha-reporter --save-dev
+```
+
+```
+getAgeInYears( years: number ): number{
+  if( years > 0 ){ 
+    return this.age + years;
+  }
+  return this.age;
+}
+```
