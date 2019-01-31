@@ -13,7 +13,7 @@ describe('Test for PersonModel', () => {
 
   describe('Test for person.getAgeInYears', () => {
 
-    it('should return 35 years', () => {
+    it('should return 25 years', () => {
       const person = new Person('Nicolas', 'Molina', 25);
       const age = person.getAgeInYears(10);
       expect(age).toEqual(35);
