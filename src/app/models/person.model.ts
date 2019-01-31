@@ -7,7 +7,7 @@ export class Person {
   ) {}
 
   getFullName(): string {
-   return `${this.name} ${this.lastname}`;
+   return `${this.name}-${this.lastname}`;
   }
 
   getAgeInYears( years: number ): number {

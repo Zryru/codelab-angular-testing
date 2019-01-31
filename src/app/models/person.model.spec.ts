@@ -1,34 +1,41 @@
 import { Person } from './person.model';
 
-describe('Test for PersonModel', () => {
+fdescribe('Test for PersonModel', () => {
 
   describe('Test for person.getFullName', () => {
 
     it('should return an string with name + lastname', () => {
+      // ARRANGE
       const person = new Person('Nicolas', 'Molina', 25);
-      expect(person.getFullName()).toEqual('Nicolas Molina');
+      // ACT
+      const rta = person.getFullName();
+      // ASSERT
+      expect(rta).toEqual('Nicolas-Molina');
     });
 
   });
 
   describe('Test for person.getAgeInYears', () => {
 
-    it('should return 25 years', () => {
+    it('should return 35 years', () => {
+      // Arrange
       const person = new Person('Nicolas', 'Molina', 25);
+      // Act
       const age = person.getAgeInYears(10);
+      // Assert
       expect(age).toEqual(35);
     });
 
-    it('should return 40 years', () => {
+    it('should return 35 years', () => {
       const person = new Person('Nicolas', 'Molina', 20);
-      const age = person.getAgeInYears(20);
-      expect(age).toEqual(40);
+      const age = person.getAgeInYears(15);
+      expect(age).toEqual(35);
     });
 
-    it('should return 25 years with negative number', () => {
-      const person = new Person('Nicolas', 'Molina', 25);
+    it('should return 28 years with negative number', () => {
+      const person = new Person('Nicolas', 'Molina', 28);
       const age = person.getAgeInYears(-10);
-      expect(age).toEqual(25);
+      expect(age).toEqual(28);
     });
 
   });
