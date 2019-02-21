@@ -194,3 +194,68 @@ describe('Test for log register', () => {
   });
 });
 ```
+## 3. Tests httpClient
+
+![Imgur](https://i.imgur.com/KeUU7IL.png)
+
+
+```
+ng g service tasks
+```
+
+```
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class TasksService {
+
+  constructor(
+    private http: HttpClient
+  ) { }
+}
+```
+
+```
+getAllTasks() {
+  return this.http.get('http://jsonplaceholder.typicode.com/todos');
+}
+```
+
+```
+describe('Test for getAllTask', () => {
+  it('should return tasks', () => {
+    // Arrange
+    const expectData = [
+      {
+        'userId': 1,
+        'id': 1,
+        'title': 'delectus aut autem',
+        'completed': false
+      },
+      {
+        'userId': 1,
+        'id': 2,
+        'title': 'quis ut nam facilis et officia qui',
+        'completed': false
+      },
+    ];
+    let dataError, dataResponse;
+    // Act
+    service.getAllTasks()
+    .subscribe((response) => {
+      dataResponse = response;
+    }, (error) => {
+      dataError = error;
+    });
+    const req = httpTestingController.expectOne(`http://jsonplaceholder.typicode.com/todos`);
+    req.flush(expectData);
+    // Assert
+    expect(dataResponse.length).toEqual(2);
+    expect(req.request.method).toEqual('GET');
+    expect(dataError).toBeUndefined();
+  });
+});
+```
