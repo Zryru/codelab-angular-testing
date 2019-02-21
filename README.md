@@ -101,3 +101,92 @@ getAgeInYears( years: number ): number{
   return this.age;
 }
 ```
+
+## 2. Tests services
+
+![Imgur](https://i.imgur.com/KeUU7IL.png)
+
+```
+ng g service logger
+```
+
+```
+export class LoggerService {
+
+  logs: string[] = [];
+
+  constructor() { }
+
+  logError(error: Error, msg: string): void {
+    const logMsg = {
+      level: 'error',
+      extra: {
+        title: `ERROR: ${msg}`
+      }
+    };
+    console.error(logMsg.extra.title, error);
+    this.log(error, logMsg);
+  }
+
+  private log(error: Error, logMsg: any): void {
+    this.logs.push(logMsg.extra.title);
+    // send error to SENTRY;
+  }
+}
+```
+
+```
+describe('Test for logError', () => {
+
+  it('should return "ERROR: error message"', () => {
+    const service: LoggerService = TestBed.get(LoggerService);
+    service.logError(new Error('error error'), 'error message');
+    expect(service.logs[0]).toEqual('ERROR: error message');
+  });
+
+});
+```
+
+```
+logWarning(error: Error, msg: string): void{
+  const logMsg = {
+    level: 'warning',
+    extra: {
+      title: `WARNING: ${msg}`
+    }
+  };
+  console.warn(logMsg.extra.title, error);
+  this.log(error, logMsg);
+}
+```
+
+
+```
+describe('Test for logWarning', () => {
+
+  it('should return "WARNING: warning message"', () => {
+    const service: LoggerService = TestBed.get(LoggerService);
+    service.logWarning(new Error('warning error'), 'warning message');
+    expect(service.logs[0]).toEqual('WARNING: warning message');
+  });
+
+});
+```
+
+
+```
+describe('Test for log register', () => {
+
+  it('should register four logs', () => {
+    const service: LoggerService = TestBed.get(LoggerService);
+    service.logError(new Error('error error'), 'error message');
+    service.logWarning(new Error('warning error'), 'warning message');
+    service.logError(new Error('error error'), 'error message');
+    service.logWarning(new Error('warning error'), 'warning message');
+    expect(service.logs[0]).toEqual('ERROR: error message');
+    expect(service.logs[1]).toEqual('WARNING: warning message');
+    expect(service.logs[2]).toEqual('ERROR: error message');
+    expect(service.logs[3]).toEqual('WARNING: warning message');
+  });
+});
+```
