@@ -1,6 +1,6 @@
 import { Person } from './person.model';
 
-fdescribe('Test for PersonModel', () => {
+describe('Test for PersonModel', () => {
 
   describe('Test for person.getFullName', () => {
 
