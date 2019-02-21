@@ -194,7 +194,3 @@ describe('Test for log register', () => {
   });
 });
 ```
-
-## 3. Tests httpClient
-
-![Imgur](https://i.imgur.com/KeUU7IL.png)
