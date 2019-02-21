@@ -4,12 +4,14 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { TasksService } from './tasks.service';
+import { LoggerService } from './logger.service';
 
 describe('TasksService', () => {
 
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
   let service: TasksService;
+  let loggerService: LoggerService;
 
   beforeEach(() => {
 
@@ -21,6 +23,7 @@ describe('TasksService', () => {
     httpClient = TestBed.get(HttpClient);
     httpTestingController = TestBed.get(HttpTestingController);
     service = TestBed.get(TasksService);
+    loggerService = TestBed.get(LoggerService);
   });
 
   it('should be created', () => {
@@ -59,5 +62,24 @@ describe('TasksService', () => {
       expect(req.request.method).toEqual('GET');
       expect(dataError).toBeUndefined();
     });
+
+
+    it('should call to logger error', () => {
+      const error_msg = 'deliberate 404 error';
+      spyOn(loggerService, 'logError').and.callFake(() => {});
+      service.getAllTasks()
+      .subscribe(
+        () => fail('Error'),
+        (error: string) => {
+          expect(error).toEqual('Error');
+        }
+      );
+      const req = httpTestingController.expectOne(`http://jsonplaceholder.typicode.com/todos`);
+      expect(req.request.method).toEqual('GET');
+      req.flush(error_msg, { status: 404, statusText: 'Not Found' });
+
+      expect(loggerService.logError).toHaveBeenCalled();
+    });
   });
+
 });
