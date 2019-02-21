@@ -108,7 +108,7 @@ getAgeInYears( years: number ): number{
 
 ## 2. Tests services
 
-![Imgur](https://i.imgur.com/KeUU7IL.png)
+![Imgur](https://i.imgur.com/UU8dybM.png)
 
 ```
 ng g service logger
@@ -194,3 +194,7 @@ describe('Test for log register', () => {
   });
 });
 ```
+
+## 3. Tests httpClient
+
+![Imgur](https://i.imgur.com/KeUU7IL.png)
