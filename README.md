@@ -194,6 +194,7 @@ describe('Test for log register', () => {
   });
 });
 ```
+
 ## 3. Tests httpClient
 
 ![Imgur](https://i.imgur.com/KeUU7IL.png)
@@ -259,3 +260,7 @@ describe('Test for getAllTask', () => {
   });
 });
 ```
+
+## 4. Tests httpClient
+
+![Imgur](https://i.imgur.com/O5ddeDa.png)
