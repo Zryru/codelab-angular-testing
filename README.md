@@ -1,5 +1,9 @@
 # AngularTesting
 
+## 1. Intro Jasmine
+
+![Imgur](https://i.imgur.com/777x7hb.png)
+
 ```
 describe('test', () => {
   it('test for a sum', () => {
